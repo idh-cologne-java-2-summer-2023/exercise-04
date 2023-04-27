@@ -10,7 +10,7 @@ public class Bank implements Iterable<Account> {
 
 	public Bank() {
 
-		// Code für zufällige Accounts aus ATM übernommen
+		// Code für zufällige Accounts aus ATM Klasse übernommen
 		Random random = new Random();
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
