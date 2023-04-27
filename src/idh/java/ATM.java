@@ -8,17 +8,18 @@ public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
-
+    int id = 1;
+    Bank bank;
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Account[] accounts = Bank.getAccounts();
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
+	public ATM(Bank bank) {
+		
+		// Aufgabe 2
+		for(Account account : bank) {
+			System.out.println("Gesuchter Account" + account);
 		}
-	}
+		}
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -27,6 +28,13 @@ public class ATM {
 	 * loop breaks and the program exists
 	 */
 	public void run() {
+		
+//		AccountIterator ai = new AccountIterator(accounts);
+//		while(ai.hasNext()) {
+//			Account myAccount = ai.next();
+//			System.out.println(myAccount);
+//		}
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
@@ -44,6 +52,8 @@ public class ATM {
 
 	public void cashout(int accountNumber, int amount) {
 		// check for cash in the ATM
+
+		
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
 			return;
@@ -66,16 +76,17 @@ public class ATM {
 		account.withdraw(amount);
 		cash += amount;
 		System.out.println("Ok, here is your money, enjoy!");
-
-	};
-
+	}
 	/**
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank bank = new Bank();
+		ATM atm = new ATM(bank);
 		atm.run();
-	};
+		
+
+		}
 	
 	/**
 	 * Retrieves the account given an id.
@@ -84,9 +95,13 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
+		
+		//Aufgabe 1
+		AccountIterator ai = new AccountIterator(accounts);
+		while(ai.hasNext()) {
+			Account myAccount = ai.next();
+			if (myAccount.getId() == id) 
+				return myAccount;
 		}
 		return null;
 	}
