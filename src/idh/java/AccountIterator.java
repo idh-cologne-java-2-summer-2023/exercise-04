@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class AccountIterator implements Iterator<Account> {
 
-	Account[] accounts;
+	static Account[] accounts;
 	int currentPosition = -1;
 
 	public AccountIterator(Account[] accounts) {
