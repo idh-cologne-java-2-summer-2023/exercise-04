@@ -6,18 +6,23 @@ import java.util.Random;
 
 public class ATM {
 
+	Bank bank;;
+
 	// initial cash in the ATM
 	int cash = 100;
 
 	static // accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Account[] accounts = Bank.getAccount();
 
-	public ATM() {
+	public ATM(Bank bank) {
+		this.bank = bank;
 		// create accounts with varying balances
 		Random random = new Random();
-		for (int i = 0; i < this.accounts.length; i++) {
-			this.accounts[i] = new Account(i, random.nextInt(1000));
+
+		for (Account account : bank) {
+			System.out.println("Gesuchtes Konto: " + account);
 		}
+
 	}
 
 	/**
@@ -27,6 +32,7 @@ public class ATM {
 	 * loop breaks and the program exists
 	 */
 	public void run() {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
@@ -73,13 +79,9 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank bank = new Bank();
+		ATM atm = new ATM(bank);
 		atm.run();
-
-		AccountIterator accIter = new AccountIterator(accounts);
-		while (accIter.hasNext()) {
-			System.out.println(accIter.next());
-		}
 
 	};
 
@@ -90,11 +92,16 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : this.accounts) {
-			if (account.getId() == id) {
-				return account;
+
+		// Zugriff auf Konto (Aufgabe 1)
+		AccountIterator accIterator = new AccountIterator(accounts);
+		while (accIterator.hasNext()) {
+			Account thisAccount = accIterator.next();
+			if (thisAccount.getId() == id) {
+				return thisAccount;
 			}
 		}
+
 		return null;
 	}
 
