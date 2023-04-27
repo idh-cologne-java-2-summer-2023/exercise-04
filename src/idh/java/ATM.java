@@ -2,22 +2,19 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Random;
 
 public class ATM {
 	
 	// initial cash in the ATM
-	int cash = 100;
-
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	int cash = 1000;	
+	static Bank b;
+	public ATM(Bank b) {  
+	//Somehow my Bank "b" doesn't seem to be iterable
+		/*for(Account account : b) { 
+			System.out.println(account);
+		} */
 	}
 	
 	/**
@@ -32,6 +29,7 @@ public class ATM {
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
+				System.out.println("You have: " + b.accounts[accountNumber].balance + "€ left in your account.");
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
 				cashout(accountNumber, amount);
@@ -73,18 +71,15 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank b = new Bank();
+		ATM atm = new ATM(b);
 		atm.run();
 	};
 	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
+	
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+		
+		for (Account account : b.accounts) {
 			if (account.getId() == id) 
 				return account;
 		}
