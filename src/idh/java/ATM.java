@@ -2,11 +2,10 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
 
-	Bank bank;;
+	Bank bank;
 
 	// initial cash in the ATM
 	int cash = 100;
@@ -17,7 +16,6 @@ public class ATM {
 	public ATM(Bank bank) {
 		this.bank = bank;
 		// create accounts with varying balances
-		Random random = new Random();
 
 		for (Account account : bank) {
 			System.out.println("Gesuchtes Konto: " + account);
