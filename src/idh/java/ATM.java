@@ -10,11 +10,13 @@ public class ATM {
 	// initial cash in the ATM
 	int cash = 1000;	
 	static Bank b;
+	
 	public ATM(Bank b) {  
-	//Somehow my Bank "b" doesn't seem to be iterable
-		/*for(Account account : b) { 
+		Account[] accounts = b.getAccount();
+		for(Account account : b) { 
 			System.out.println(account);
-		} */
+		} 
+	
 	}
 	
 	/**
@@ -74,6 +76,7 @@ public class ATM {
 		Bank b = new Bank();
 		ATM atm = new ATM(b);
 		atm.run();
+		
 	};
 	
 	

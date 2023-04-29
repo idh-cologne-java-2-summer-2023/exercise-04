@@ -2,7 +2,7 @@ package idh.java;
 import java.util.Iterator;
 import java.lang.Iterable;
 
-public class Bank {
+public class Bank implements Iterable<Account> {
 
 	static Account[] accounts = new Account[100];
 	
@@ -19,6 +19,11 @@ public class Bank {
 	
 	public Iterator<Account> iterator(){
 		return new AccountIterator(accounts);
+	}
+	
+	public static Account[] getAccount() {
+
+		return accounts;
 	}
 	
 }

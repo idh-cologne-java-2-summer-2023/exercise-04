@@ -6,7 +6,7 @@ public class AccountIterator implements Iterator<Account>{
 
 	static int position = 0;
 	
-	static Account[] accounts;
+	static Account[] accounts = new Account[100];
 	public AccountIterator(	Account[] accounts){
 		accounts = Bank.accounts;
 	}
