@@ -20,6 +20,19 @@ public class ATM {
 		}
 	}
 	
+	
+	{
+	//Aufgabe 2 Iterable
+	for (Account account : accounts) {
+		System.out.println(account.getBalance());
+		System.out.println(account.getId());
+		
+	}}
+	
+	//gibt array länge zurück
+	public int size () {
+		return accounts.length;
+	}
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
 	 * number to the function cashout(...) which actually does the calculation and
@@ -68,6 +81,9 @@ public class ATM {
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
+	
+	
+	
 
 	/**
 	 * Launches the ATM
@@ -75,6 +91,22 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+			
+		/**ITERATOR DER EINMAL ÜBER DIE ACCOUNTS GEHT 
+		 * UND DIE NACH DER REIHE AUSGIBT
+		 * 
+		 * */
+		AccountIterator iter = new AccountIterator(atm);
+		while(iter.hasNext()) {
+			System.out.println(iter.next().getBalance());
+			System.out.println(iter.next().getId());
+		}
+		
+		
+		
+		
+		
+		
 	};
 	
 	/**
@@ -90,5 +122,10 @@ public class ATM {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	
 
 }
