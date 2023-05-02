@@ -8,17 +8,9 @@ public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
-
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
-	}
+	
+	Bank bank = new Bank("Bank of Ruanda",10);
+	
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -84,7 +76,7 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+		for (Account account : bank) {
 			if (account.getId() == id) 
 				return account;
 		}
