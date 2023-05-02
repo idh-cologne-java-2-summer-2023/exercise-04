@@ -1,10 +1,12 @@
 package idh.java;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; 
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
+	
+	// Bank, zu der der Geldautomat gehört
+	Bank bank;
 	
 	// initial cash in the ATM
 	int cash = 100;
@@ -12,12 +14,8 @@ public class ATM {
 	// accounts known to the ATM
 	Account[] accounts = new Account[5];
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank bank) {
+		this.bank = bank;
 	}
 	
 	/**
@@ -50,6 +48,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
+		
 		Account account = getAccount(accountNumber);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
@@ -64,17 +63,10 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		//cash += amount; FALSCH, oder? Der Betrag wird ja aus dem Gelddepot des Automaten entnommen
+		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
-	};
-
-	/**
-	 * Launches the ATM
-	 */
-	public static void main(String[] args) {
-		ATM atm = new ATM();
-		atm.run();
 	};
 	
 	/**
@@ -84,11 +76,29 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
+		// Aufgabe 4.1:
+		AccountIterator iter = new AccountIterator(bank.accounts);
+		while (iter.hasNext()) {
+			if (id == iter.next().id) return iter.current();
 		}
 		return null;
+		
+		// Aufgabe 4.2:
+		/*for (Account account : bank) {
+			if (account.id == id) return account;
+		}
+		return null;*/
+		
 	}
+	
+	
+	/**
+	 * Launches the ATM
+	 */
+	public static void main(String[] args) {
+		Bank ING_DiBa = new Bank();
+		ATM atm = new ATM(ING_DiBa);
+		atm.run();
+	};
 
 }
