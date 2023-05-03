@@ -8,16 +8,12 @@ public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
+	
+	Bank bank;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank bank) {
+		
+		this.bank = bank;
 	}
 	
 	/**
@@ -50,7 +46,14 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		// wird erst nach Angabe des Betrages überprüft
+		Account account = null;
+		for (Account a : bank) {
+			if (a.getId() == accountNumber) {
+				account = a;
+				break;
+			}
+		}
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -73,7 +76,15 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		//Erstellen neuer Bankkonten
+		Bank bank = new Bank(5);
+		Random random = new Random();
+		for (Account account : bank) {
+			account.setBalance(random.nextInt(1000));
+		}
+		
+		// neuer ATM mit Bank-Referenz
+		ATM atm = new ATM(bank);
 		atm.run();
 	};
 	
@@ -84,11 +95,12 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
+	    for (Account account : bank) {
+	        if (account.getId() == id) {
+	            return account;
+	        }
+	    }
+	    return null;
 	}
 
 }
