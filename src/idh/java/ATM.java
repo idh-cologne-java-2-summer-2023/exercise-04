@@ -69,20 +69,13 @@ public class ATM {
 
 	};
 
-	/**
-	 * Launches the ATM
-	 */
+	
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
-	};
+	}
 	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
+	
 	protected Account getAccount(int id) {
 		for (Account account : accounts) {
 			if (account.getId() == id) 
@@ -91,4 +84,8 @@ public class ATM {
 		return null;
 	}
 
+	
+	
+
+	
 }
