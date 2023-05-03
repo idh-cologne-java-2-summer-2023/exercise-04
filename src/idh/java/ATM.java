@@ -2,93 +2,82 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
-	
-	// initial cash in the ATM
-	int cash = 100;
+    int atmBalance = 1000; // ATM balance
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+    Bank bank;
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
-	}
-	
-	/**
-	 * Main command loop of the ATM Asks the user to enter a number, and passes this
-	 * number to the function cashout(...) which actually does the calculation and
-	 * produces money. If the user enters anything else than an integer number, the
-	 * loop breaks and the program exists
-	 */
-	public void run() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while (true) {
-			try {
-				System.out.print("Enter your account number: ");
-				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Enter the amount to withdraw: ");
-				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
-			} catch (Exception e) {
-				e.printStackTrace();
-				break;
-			}
-		}
-	}
+    public ATM(Bank bank) {
+        this.bank = bank;
+    }
 
-	public void cashout(int accountNumber, int amount) {
-		// check for cash in the ATM
-		if (amount > cash) {
-			System.out.println("Sorry, not enough cash left.");
-			return;
-		}
-		
-		// check for existence of the account
-		Account account = getAccount(accountNumber);
-		if (account == null) {
-			System.out.println("Sorry, this account doesn't exist.");
-			return;
-		}
-		
-		// check for balance of the account
-		if (amount > account.getBalance()) {
-			System.out.println("Sorry, you're out of money.");
-			return;
-		}
-		
-		// withdraw
-		account.withdraw(amount);
-		cash += amount;
-		System.out.println("Ok, here is your money, enjoy!");
+    /**
+     * Main command loop of the ATM Asks the user to enter a number, and passes this
+     * number to the function cashOut(...) which actually does the calculation and
+     * produces money. If the user enters anything else than an integer number, the
+     * loop breaks and the program exists
+     */
+    public void run() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            try {
+                System.out.print("Enter your account number: ");                            //Input for account number and withdraw amount.
+                   int tempAccountNumber = Integer.parseInt(br.readLine());
 
-	};
+                   for (Account acc : bank){                                                //checks for input account number in bank array
+                       if (acc.getAccNumber() == tempAccountNumber){
+                           System.out.print("Your balance: " + acc.getAccBalance()+ '\n');  //if input account number is valid, shows account balance
+                           System.out.print("Enter the amount to withdraw: ");
+                           int amount = Integer.parseInt(br.readLine());                    //saves the input withdraw in amount
+                           cashOut(amount, acc);
+                       }
+                   }
+            } catch (Exception e) {
+                break;
+            }
+        }
+    }
 
-	/**
-	 * Launches the ATM
-	 */
-	public static void main(String[] args) {
-		ATM atm = new ATM();
-		atm.run();
-	};
-	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
-	}
+    public void cashOut(int amount, Account acc) {                                          //gets the amount and the input account
+        if (amount <= 0){                                                                   //checks if input amount is bigger or equal to zero
+            System.out.println("error, invalid input!");
+        }
+        else if (atmBalance >= amount && amount <= acc.accBalance) {                        //checks if enough cash is in atm and in account
+            acc.accBalance -= amount;                                                       //subtracts the cash from Account
+            atmBalance -= amount;                                                           //..
+            System.out.println("Ok, here is your money, enjoy!");
+        } else if (amount > acc.accBalance){                                                //checks for cash in account
+            System.out.println("Sorry, not enough money in the bank.");
+        } else {
+            System.out.println("Sorry, the ATM doesn't have that much cash anymore.");      //shows if no cash in atm
+        }
 
-}
+    }
+    /**
+     * Launches the ATM
+     */
+    public static void main(String[] args) throws Exception {
+        Bank bog = new Bank("Bank of Germany", 6);
+
+        bog.addMember(1234, 1000);
+        bog.addMember(2345, 2000);
+        bog.addMember(3456, 77000);
+        bog.addMember(4567, 9999999);
+        bog.addMember(5678, 100018711);
+        bog.addMember(6789, 10002);
+
+        ATM atm = new ATM(bog);
+
+        atm.run();
+
+    }
+
+
+
+    }
+
+
+
+
+
