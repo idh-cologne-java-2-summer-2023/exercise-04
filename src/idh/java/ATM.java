@@ -3,23 +3,17 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 
-public class ATM extends Bank {
+public class ATM {
 
 	private int availableMoney = 10000;
-
-	public static void main(String[] args) {
-		Account a1 = new Account("1234");
-		Account a2 = new Account("4321");
-		Account a3 = new Account("1111");
-		Account a4 = new Account("4444");
-		a1.setBalance(1500);
-		a2.setBalance(10000);
-
-		ATM atm = new ATM();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		atm.run(br);
+	private Bank institute;
+	
+	public ATM(Bank reference) {
+		institute = reference;
 	}
+
 
 	public void run(BufferedReader br) {
 		try {
@@ -29,7 +23,7 @@ public class ATM extends Bank {
 				System.out.println("Goodbye!");
 				System.exit(0);
 			}
-			if (matchingID(input_id) == null) {
+			if (institute.matchingID(input_id) == null) {
 				System.out.println("wrong ID..");
 				this.run(br);
 			}
@@ -44,7 +38,7 @@ public class ATM extends Bank {
 	private void run2(String input_id, BufferedReader br) {
 		while (true) {
 			try {
-				Account currentAccount = matchingID(input_id);
+				Account currentAccount = institute.matchingID(input_id);
 				System.out.println("Your current balance is: " + currentAccount.getBalance() + "$");
 				System.out.print("Enter the amount to withdraw: ");
 				String input_amount = br.readLine();
@@ -89,6 +83,14 @@ public class ATM extends Bank {
 
 	public void setAvailableMoney(int availableMoney) {
 		this.availableMoney = availableMoney;
+	}
+
+	public Bank getInstitute() {
+		return institute;
+	}
+
+	public void setInstitute(Bank reference) {
+		institute = reference;
 	}
 
 }
