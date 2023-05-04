@@ -2,93 +2,81 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
+import java.util.Scanner;
 
 public class ATM {
-	
-	// initial cash in the ATM
-	int cash = 100;
-
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
-	}
-	
-	/**
-	 * Main command loop of the ATM Asks the user to enter a number, and passes this
-	 * number to the function cashout(...) which actually does the calculation and
-	 * produces money. If the user enters anything else than an integer number, the
-	 * loop breaks and the program exists
-	 */
-	public void run() {
+	String name = "Sparkasse";
+	public void run(int currentAccountNumber) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
-				System.out.print("Enter your account number: ");
-				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Enter the amount to withdraw: ");
+				System.out.print("Enter the amount to withdraw: \nPress x to cancel.\n");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				if( CashAmount.getAvailableMoney()>=amount) {
+					cashout(amount, currentAccountNumber);
+				} else {
+					System.out.println("The ATM doesn't have enough cash. Remaining cash amount: "+ CashAmount.getAvailableMoney());
+				}
 			} catch (Exception e) {
-				e.printStackTrace();
 				break;
 			}
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
-		// check for cash in the ATM
-		if (amount > cash) {
-			System.out.println("Sorry, not enough cash left.");
-			return;
+	public void cashout(int amount, int currentAccountNumber) {
+		if (amount < Bank.getAccountBalance(currentAccountNumber)) {
+			Bank.withdraw(currentAccountNumber, amount);
+			System.out.println("Ok, here is your money, enjoy!");
+			System.out.println("Your new balance is " + Bank.getAccountBalance(currentAccountNumber)+"\n");
+			CashAmount.reduceMoney(amount);
+		} else {
+			System.err.println("Insufficient balance");
 		}
-		
-		// check for existence of the account
-		Account account = getAccount(accountNumber);
-		if (account == null) {
-			System.out.println("Sorry, this account doesn't exist.");
-			return;
-		}
-		
-		// check for balance of the account
-		if (amount > account.getBalance()) {
-			System.out.println("Sorry, you're out of money.");
-			return;
-		}
-		
-		// withdraw
-		account.withdraw(amount);
-		cash += amount;
-		System.out.println("Ok, here is your money, enjoy!");
 
 	};
 
-	/**
-	 * Launches the ATM
-	 */
 	public static void main(String[] args) {
+		int currentAccountNumber = 0;
 		ATM atm = new ATM();
-		atm.run();
-	};
-	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
+		Bank database = new Bank();
+		CashAmount cashamount = new CashAmount(300);
+		Scanner input = new Scanner(System.in);
+		
+		loop : while(true) {
+		
+		System.out.println("Do you want to login or create a new account?");
+		String command = input.nextLine();
+		
+		switch(command.toLowerCase()){
+		case "login": {
+			System.out.println("Enter your Account number please");
+			int accountNumber = input.nextInt();
+			System.out.println("Enter your Pin: ");	
+			int pin = input.nextInt();
+			
+			if(Bank.authenticateUser(accountNumber, pin)) {
+				currentAccountNumber = accountNumber;
+				atm.run(currentAccountNumber);
+			}
+			else {
+				System.err.println("Invalid credentials");
+			}	
+			break;
 		}
-		return null;
+		case "new": {
+			System.out.println("Alright, enter your name please");
+			//Muss noch gemacht werden
+			break;
+		}
+		case "showcash": {
+			System.out.printf("Available Money %s\n", CashAmount.getAvailableMoney());
+			break;
+		}
+		case "exit": {
+			System.out.println("Have a nice day!");
+			break loop;
+		}
+		}
 	}
-
+};
 }

@@ -1,45 +1,57 @@
 package idh.java;
 
-/**
- * This class represents an account in our bank.
- * @author reiterns
- *
- */
 public class Account {
-	// the balance of the account
-	int balance;
+	private String name;
+	private int accountNumber;
+	private int accountBalance;
+	private int pin;
 	
-	// the id of the account
-	int id;
-
-	public Account(int id, int status) {
-		this.id = id;
-		this.balance = status;
-	}
 	
-	public int getId() {
-		return id;
+	public Account (int accountNumber, String name) {
+		
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int status) {
-		this.balance = status;
+	public Account(String newName, int newAccountNumber, int newAccountBalance, int newpin) {
+		name = newName;
+		accountNumber = newAccountNumber;
+		accountBalance = newAccountBalance;
+		pin = newpin;
 	}
 	
-	/**
-	 * Withdraws a sum of money from the account
-	 * @param sum
-	 */
-	public void withdraw(int sum) {
-		this.balance = balance - sum;
+	public boolean validatePin(int userPIN) {
+		if(userPIN == pin) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void withdraw (int amount) {
+		accountBalance -= amount;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public int getAccountBalance() {
+		return accountBalance;
+	}
+
+	public void setAccountBalance(int accountBalance) {
+		this.accountBalance = accountBalance;
+	}
 	
 }
