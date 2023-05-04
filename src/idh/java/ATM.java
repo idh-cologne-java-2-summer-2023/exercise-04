@@ -2,39 +2,29 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
-public class ATM {
+public class ATM extends Bank {
 	
 	// initial cash in the ATM
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Account[] accounts = knownacc();
+	Account account = getAccount(id);
 
 	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
 	}
-	
-	/**
-	 * Main command loop of the ATM Asks the user to enter a number, and passes this
-	 * number to the function cashout(...) which actually does the calculation and
-	 * produces money. If the user enters anything else than an integer number, the
-	 * loop breaks and the program exists
-	 */
+
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
-				System.out.print("Enter your account number: ");
-				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Enter the amount to withdraw: ");
+				System.out.print("Please enter your account number: ");
+				int id = Integer.parseInt(br.readLine());
+				System.out.println("Your current balance is " + account.getBalance() + "€");
+				System.out.print("Please enter the amount you would like to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				cashout(id, amount);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -42,7 +32,7 @@ public class ATM {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int id, int amount) {
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -50,7 +40,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		Account account = getAccount(id);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -65,7 +55,11 @@ public class ATM {
 		// withdraw
 		account.withdraw(amount);
 		cash += amount;
+		int newbalance;
+		newbalance = account.getBalance() -amount;
+		account.setBalance(newbalance);
 		System.out.println("Ok, here is your money, enjoy!");
+			
 
 	};
 

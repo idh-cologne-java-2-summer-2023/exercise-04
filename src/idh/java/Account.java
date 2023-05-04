@@ -28,9 +28,12 @@ public class Account {
 	public int getBalance() {
 		return balance;
 	}
+	
 
 	public void setBalance(int status) {
-		this.balance = status;
+		int newbalance;
+		newbalance = this.balance - status;
+		this.balance = newbalance;
 	}
 	
 	/**
@@ -38,7 +41,10 @@ public class Account {
 	 * @param sum
 	 */
 	public void withdraw(int sum) {
-		this.balance = balance - sum;
+		int newbalance;
+		newbalance = balance -sum;
+		this.balance = newbalance;
+		
 	}
 	
 	
