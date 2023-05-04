@@ -8,15 +8,15 @@ public class Bank implements Iterable<Account>{
 	//Bank Name
 	String name;
 	//number of Accounts
-	 int accQuant;
+	 static int accQuant = 10;
 	
-	static Account[] accounts;
+	static Account[] accounts = new Account[accQuant];;
 
 	
-	public Bank(String name, int accQuant) {
+	public Bank(String name) {
 		this.name = name;
-		this.accQuant = accQuant;
 		createAccs();
+		
 	}
 	
 	public static int acclistLength() {

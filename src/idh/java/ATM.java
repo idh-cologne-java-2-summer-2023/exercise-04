@@ -9,7 +9,7 @@ public class ATM {
 	// initial cash in the ATM
 	int cash = 100;
 	
-	Bank bank = new Bank("Bank of Ruanda",10);
+	static Bank bank;
 	
 	
 	/**
@@ -56,7 +56,7 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
@@ -65,6 +65,7 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
+		bank = new Bank("Bank of Ruanda");
 		ATM atm = new ATM();
 		atm.run();
 	};
