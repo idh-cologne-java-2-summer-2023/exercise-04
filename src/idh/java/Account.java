@@ -30,7 +30,7 @@ public class Account {
 	}
 
 	public void setBalance(int status) {
-		this.balance = status;
+		status += this.balance;
 	}
 	
 	/**
