@@ -2,9 +2,29 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
-public class ATM {
+public class ATM implements Iterable<Account>{
+	
+	private class AccountIterator implements Iterator<Account>{
+		
+		int cPos;
+		
+		public AccountIterator() {
+			cPos = 0;
+		}
+		@Override
+		public boolean hasNext() {
+			return cPos < accounts.length;
+		}
+		@Override
+		public Account next() {
+			cPos++;
+			return accounts[cPos-1];
+		}
+	}
+	
 	
 	// initial cash in the ATM
 	int cash = 100;
@@ -89,6 +109,20 @@ public class ATM {
 				return account;
 		}
 		return null;
+	}
+	protected Account getAccountWithWhileLoop(int id) {
+		Iterator<Account> iterator = this.iterator();
+		while(iterator.hasNext()) {
+			Account cAcc = iterator.next();
+			if(cAcc.id == id)
+				return cAcc;
+		}
+		return null;
+	}
+
+	@Override
+	public Iterator<Account> iterator() {
+		return new AccountIterator();
 	}
 
 }
