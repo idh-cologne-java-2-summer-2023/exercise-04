@@ -3,7 +3,6 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Iterator;
-import java.util.Random;
 
 public class ATM implements Iterable<Account>{
 	
@@ -16,12 +15,12 @@ public class ATM implements Iterable<Account>{
 		}
 		@Override
 		public boolean hasNext() {
-			return cPos < accounts.length;
+			return cPos < usedBank.getAccounts().length;
 		}
 		@Override
 		public Account next() {
 			cPos++;
-			return accounts[cPos-1];
+			return usedBank.getAccounts()[cPos-1];
 		}
 	}
 	
@@ -30,14 +29,10 @@ public class ATM implements Iterable<Account>{
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Bank usedBank;
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank givenBank) {
+		usedBank = givenBank;
 	}
 	
 	/**
@@ -93,7 +88,7 @@ public class ATM implements Iterable<Account>{
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		ATM atm = new ATM(new Bank());
 		atm.run();
 	};
 	
@@ -104,7 +99,7 @@ public class ATM implements Iterable<Account>{
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+		for (Account account : usedBank.getAccounts()) {
 			if (account.getId() == id) 
 				return account;
 		}
