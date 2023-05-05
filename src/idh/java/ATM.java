@@ -2,6 +2,7 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ATM {
@@ -64,10 +65,32 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
+	
+	class AccountIterator implements Iterator<Account>{
+		
+		Account account;
+		int currentPosition = -1;
+		
+		public AccountIterator(Account account) {
+			this.account = account;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return currentPosition < accounts.length-1;
+		}
+
+		@Override
+		public Account next() {
+			currentPosition++;
+			return accounts[currentPosition];
+		}
+		
+	}
 
 	/**
 	 * Launches the ATM
