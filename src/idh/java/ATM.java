@@ -19,6 +19,10 @@ public class ATM {
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
+		AccountIterator iterator = new AccountIterator();
+		while(iterator.hasNext()) {
+			System.out.println(iterator.next().balance);
+		}
 	}
 	
 	/**
@@ -72,11 +76,10 @@ public class ATM {
 	
 	class AccountIterator implements Iterator<Account>{
 		
-		Account account;
+		
 		int currentPosition = -1;
 		
-		public AccountIterator(Account account) {
-			this.account = account;
+		public AccountIterator() {
 		}
 		
 		@Override
