@@ -1,8 +1,10 @@
 package idh.java;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 public class ATM {
 	
@@ -10,15 +12,23 @@ public class ATM {
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Account[] accounts = new Account[5]; //Id to enter: 0 - 4
 
-	public ATM() {
+	public ATM(String bankName) {
 		// create accounts with varying balances
 		Random random = new Random();
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
+			
 	}
+	
+	
+	public int size() {
+		return accounts.length;
+	}
+	
+ 	
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -68,13 +78,81 @@ public class ATM {
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
+	
+	
+//the iterator as inner class of ATM	
+	public class AccountIterator implements Iterator<Account> {
+		
+		ATM accounts;
+		int numberAccounts= 0; //counter variable
+		
+		public AccountIterator (ATM accounts) {
+			this.accounts = accounts;
+		}
+		
+		
+		@Override
+		public boolean hasNext() {
+			return numberAccounts < accounts.size();
+		}
+
+		@Override
+		public Account next() {
+			numberAccounts++;
+			return accounts.getAccount(numberAccounts);
+		}		
+		
+	}
+	
 
 	/**
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
-		atm.run();
+		
+		ATM atm1 = new ATM("Sparkasse");
+		atm1.run();
+		
+		ATM atm2 = new ATM("Deutsche Bank");
+		
+		ATM atm3 = new ATM("Postbank");
+
+		
+//initialize iterator with innerclass AccountIterator
+		
+		ATM.AccountIterator iter = atm1.new AccountIterator(atm1);
+		while(iter.hasNext()) {
+			System.out.println(iter.next().getId());
+//doesn't print anything...I'm missing something
+		}
+		
+		
+		ArrayList<Bank> account = new ArrayList<Bank>();
+		
+		Bank accOne = new Bank("Postbank", 4568);
+		Bank accTwo = new Bank("Postbank", 0127);
+		Bank accThree = new Bank("Sparkasse", 5635);
+		Bank accFour = new Bank("Sparkasse", 5635);
+		Bank accFive = new Bank("Sparkasse", 7081);
+		Bank accSix = new Bank ("Deutsche Bank", 9559);
+		Bank accSeven = new Bank ("Deutsche Bank", 1919);
+		
+		account.add(accOne);
+		account.add(accTwo);
+		account.add(accThree);
+		account.add(accFour);
+		account.add(accFive);
+		account.add(accSix);
+		account.add(accSeven);
+		
+		
+		for (Iterator<Bank> iter2 = account.iterator(); iter2.hasNext();) {
+			Bank accounts = iter2.next();
+			System.out.println(accounts);
+		}
+		
+		
+		
 	};
 	
 	/**
@@ -89,6 +167,9 @@ public class ATM {
 				return account;
 		}
 		return null;
-	}
+	} 
+	
+	
+	
 
 }
