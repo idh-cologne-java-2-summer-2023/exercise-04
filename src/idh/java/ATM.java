@@ -12,12 +12,7 @@ public class ATM {
 	// accounts known to the ATM
 	Account[] accounts = new Account[5];
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank bank) {
 	}
 	
 	/**
@@ -50,7 +45,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		Account account = Bank.getAccount(accountNumber);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -64,7 +59,6 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		account.setBalance(amount);
 		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
@@ -74,8 +68,14 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		
+		
+		Bank b1 = new Bank("Deutsche Bank", 5);
+		
+		
+		ATM atm = new ATM(b1);
 		atm.run();
+		
 	};
 	
 	/**
@@ -84,12 +84,6 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
-	}
-
+	
+	
 }
