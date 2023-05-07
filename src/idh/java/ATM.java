@@ -6,18 +6,19 @@ import java.util.Random;
 
 public class ATM {
 	
+	//Bank of the ATM
+	String Bank;
+	
 	// initial cash in the ATM
 	int cash = 100;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(String bank) {
+		this.Bank = bank;
+		
+		
+		
 	}
 	
 	/**
@@ -28,7 +29,7 @@ public class ATM {
 	 */
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while (true) {
+		while (true) {								
 			try {
 				System.out.print("Enter your account number: ");
 				int accountNumber = Integer.parseInt(br.readLine());
@@ -54,41 +55,42 @@ public class ATM {
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
-		}
+		} 
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {
 			System.out.println("Sorry, you're out of money.");
 			return;
+			
 		}
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		cash -= amount; //war += (Fehler?)
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
+
+	
+
+	private Account getAccount(int accountNumber) {
+		for (Account account : bank) {
+			if (account.getId() == accountNumber) 
+			return account;
+		return null;
+		}
+	}
 
 	/**
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		ATM atm = new ATM(null);
 		atm.run();
+		
+		
 	};
 	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
-	}
+	
 
 }
