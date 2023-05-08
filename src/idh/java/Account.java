@@ -1,5 +1,6 @@
 package idh.java;
 
+
 /**
  * This class represents an account in our bank.
  * @author reiterns
@@ -40,6 +41,8 @@ public class Account {
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
 	}
+
 	
+
 	
 }
