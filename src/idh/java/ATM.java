@@ -2,6 +2,7 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ATM {
@@ -11,12 +12,20 @@ public class ATM {
 
 	// accounts known to the ATM
 	Account[] accounts = new Account[5];
+	
+	//bank - ATM
+	
+	Bank lol = new Bank(this);
 
 	public ATM() {
 		// create accounts with varying balances
 		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
+		for (int i = 0; i < lol.accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
+		}
+		AccountIterator iterator = new AccountIterator(lol);
+		while(iterator.hasNext()) {
+			System.out.println(iterator.next().balance);
 		}
 	}
 	
@@ -66,8 +75,31 @@ public class ATM {
 		account.withdraw(amount);
 		cash += amount;
 		System.out.println("Ok, here is your money, enjoy!");
+		System.out.println("Money left in account: " + account.getBalance());
 
 	};
+	
+    class AccountIterator implements Iterator<Account>{
+		
+		Bank bank;
+		int currentPosition = -1;
+		
+		public AccountIterator(Bank bank) {
+			this.bank = bank;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return currentPosition < bank.accounts.length-1;
+		}
+
+		@Override
+		public Account next() {
+			currentPosition++;
+			return bank.accounts[currentPosition];
+		}
+		
+}
 
 	/**
 	 * Launches the ATM
