@@ -2,22 +2,18 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
-
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	Bank bank;
+	
+	//Testbank Kreissparkasse Köln
+	static  Bank ksk = new Bank("Kreissparkasse Koeln");		//Bekomme Fehler wenn nicht static
+	
+	public ATM(Bank bank) {
+		this.bank = bank;
 	}
 	
 	/**
@@ -28,6 +24,7 @@ public class ATM {
 	 */
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
 		while (true) {
 			try {
 				System.out.print("Enter your account number: ");
@@ -50,7 +47,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		Account account = getAccount(accountNumber, bank);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -64,8 +61,11 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		cash -= amount;
+		System.out.println(this.bank.getName());
 		System.out.println("Ok, here is your money, enjoy!");
+		System.out.println("Verbleibendes Guthaben: " + account.balance);
+		System.out.println("Cash im Automaten: " + cash + "\n");
 
 	};
 
@@ -73,7 +73,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		//ATM als Sparkassenautomaten initialisieren
+		ATM atm = new ATM(ksk);
 		atm.run();
 	};
 	
@@ -83,10 +84,13 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
+	protected Account getAccount(int id, Bank bank) {
+		
+		for(Account konten : bank) {
+			if(konten.getId() == id) {
+			System.out.println("\nID ist: " + konten.getId() + " Guthaben ist: " + konten.getBalance()); 
+			return konten;
+			}
 		}
 		return null;
 	}
