@@ -29,8 +29,9 @@ public class Account {
 		return balance;
 	}
 
-	public void setBalance(int status) {
+	public Account setBalance(int status) {
 		this.balance = status;
+		return null;
 	}
 	
 	/**
@@ -41,5 +42,13 @@ public class Account {
 		this.balance = balance - sum;
 	}
 	
+	Accountlterator iter = new Accountlterator(null);
+	while(iter.hasNext) {
+		System.out.println(iter.next().getAccount());
+	}
+	char[] getAccount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
