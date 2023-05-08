@@ -14,9 +14,12 @@ public class ATM {
 
 	public ATM() {
 		// create accounts with varying balances
+		AccountIterator iter = new AccountIterator(this);
 		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
+		while (iter.hasNext()) {
+			//accounts[iter.next().getId()] = new Account(iter.currentPosition, random.nextInt(1000));
+			iter.next().setId(iter.currentPosition);
+			iter.next().setBalance(random.nextInt(1000));
 		}
 	}
 	
@@ -64,7 +67,7 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
@@ -83,12 +86,11 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
-	protected Account getAccount(int id) {
+	public Account getAccount(int id) {
 		for (Account account : accounts) {
 			if (account.getId() == id) 
 				return account;
 		}
 		return null;
 	}
-
 }

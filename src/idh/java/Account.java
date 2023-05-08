@@ -17,6 +17,10 @@ public class Account {
 		this.balance = status;
 	}
 	
+	public Account getAccount() {
+		return this;
+	}
+	
 	public int getId() {
 		return id;
 	}
