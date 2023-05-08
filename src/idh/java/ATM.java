@@ -2,12 +2,11 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
 	
 	// initial cash in the ATM
-	static int cash = 100;
+	static int cash;
 	static Bank bank;
 	static int accountNumber;
 
@@ -15,7 +14,8 @@ public class ATM {
 	// Account[] accounts = new Account[5];
 
 	public ATM(Bank bank) {
-		this.bank = bank;
+		ATM.bank = bank;
+		cash = 100;
 	}
 
 	public static void cashout(int accountNumber, int amount) {
@@ -55,7 +55,7 @@ public class ATM {
 	 * loop breaks and the program exists
 	 */
 	
-	public static void main(String[] args) {
+	public  void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
@@ -79,7 +79,8 @@ public class ATM {
 	// gives back the right account of the type Account or null
 	protected static Account getAccount(int id) {
 		for (Account account : bank) {
-			return account;
+			if (account.getId() == id)
+				return account;
 		}
 		return null;
 	}

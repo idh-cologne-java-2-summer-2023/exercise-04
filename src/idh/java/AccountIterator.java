@@ -20,11 +20,11 @@ public class AccountIterator implements Iterator<Account> {
 	// gives back the searched account of the type Account
 	public Account next() {
 		currentPosition++;
-		for (Account account : accounts) {
-			if (account.getId() == searchedAcc) 
-				return account;
-		}
-		return null;
+//		if (accounts[currentPosition].getId() == searchedAcc) 
+//			return accounts[currentPosition];
+//		else 
+//			return null;
+		return accounts[currentPosition];
 	}
 
 }

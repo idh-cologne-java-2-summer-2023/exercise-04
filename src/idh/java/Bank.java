@@ -5,10 +5,11 @@ import java.util.Random;
 
 public class Bank implements Iterable<Account>{
 	
-	Account[] accounts = new Account[5];
-	ATM atm = new ATM(this);
+	Account[] accounts;
+	static ATM atm;
 	
 	public Bank() {
+		accounts = new Account[5];
 		Random random = new Random();
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
@@ -23,10 +24,15 @@ public class Bank implements Iterable<Account>{
 		return atm;
 	}
 
-	@Override
 	public Iterator<Account> iterator() {
-		// TODO Auto-generated method stub
 		return new AccountIterator(this, atm);
+	}
+	
+	public static void main(String[] args) {
+		Bank bank = new Bank();
+		atm = new ATM(bank);
+		atm.run();
+		
 	}
 	
 	
