@@ -5,7 +5,7 @@ package idh.java;
  * @author reiterns
  *
  */
-public class Account {
+public class Account{
 	// the balance of the account
 	int balance;
 	
@@ -25,14 +25,9 @@ public class Account {
 		this.id = id;
 	}
 
-	public int getBalance() {
-		return balance;
-	}
-
 	public void setBalance(int status) {
 		this.balance = status;
 	}
-	
 	/**
 	 * Withdraws a sum of money from the account
 	 * @param sum
