@@ -2,15 +2,15 @@ package idh.java;
 
 import java.util.Iterator;
 
-public class AccountIterator  implements Iterator<Account> {
+public class AccountIterator implements Iterator<Account> {
 	
 	Account[] accounts;
 	int searchedAcc;
 	int currentPosition = -1;
 	
-	public AccountIterator(Account[] accounts, int searchedAcc) {
-		this.accounts = accounts;
-		this.searchedAcc = searchedAcc;
+	public AccountIterator(Bank bank, ATM atm) {
+		this.accounts = bank.getAccount();
+		this.searchedAcc = ATM.getID();
 	}
 
 	public boolean hasNext() {
