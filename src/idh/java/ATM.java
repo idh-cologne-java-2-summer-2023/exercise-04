@@ -2,15 +2,25 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ATM {
 	
+	public Bank bank;
 	// initial cash in the ATM
 	int cash = 100;
 
 	// accounts known to the ATM
 	Account[] accounts = new Account[5];
+
+	// Aufgabe 2.1 Geldautomat gehört zu der Bank
+	public ATM(Bank bank) {
+		this.bank = bank;
+	}
+	public int size () {
+		return accounts.length;
+	}
 
 	public ATM() {
 		// create accounts with varying balances
@@ -19,6 +29,7 @@ public class ATM {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
 	}
+	
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -75,6 +86,17 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+	
+	// Aufgabe 1 while-Schleife 
+		
+		Iterator<Account> iterator = atm.getAccountIterator();
+		while (iterator.hasNext()) {
+		    System.out.println(iterator.next());
+		    // Konto-Operationen ausführen
+		}
+	
+	
+	
 	};
 	
 	/**
@@ -83,6 +105,20 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
+	
+	//Aufgabe 2.2 die for-Schleife
+	
+	// iteriert überin die Konten in der Bank
+	public void withdraw(int accountId, int status) {
+        for (Account account : bank) {
+            if (account.getId() == accountId) {
+                account.withdraw(status);
+                break;
+            }
+
+        }
+    }
+
 	protected Account getAccount(int id) {
 		for (Account account : accounts) {
 			if (account.getId() == id) 
@@ -90,5 +126,13 @@ public class ATM {
 		}
 		return null;
 	}
+	// um AccountIterator zu benutzen
+	public Iterator<Account> getAccountIterator() {
+		// TODO Auto-generated method stub
+		return  new AccountIterator();
+	}
+	
+
+	
 
 }
