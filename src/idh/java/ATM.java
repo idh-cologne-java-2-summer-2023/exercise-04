@@ -9,17 +9,18 @@ public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
-
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
+	
+	// bank linked to ATM
+	Bank diba = new Bank(this);
+	
 	public ATM() {
+		
 		// create accounts with varying balances
 		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
+		for (int i = 0; i < diba.accounts.length; i++) {
+			diba.accounts[i] = new Account(i, random.nextInt(1000));
 		}
-		AccountIterator iterator = new AccountIterator();
+		AccountIterator iterator = new AccountIterator(diba);
 		while(iterator.hasNext()) {
 			System.out.println(iterator.next().balance);
 		}
@@ -39,7 +40,7 @@ public class ATM {
 				int accountNumber = Integer.parseInt(br.readLine());
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				cashout(accountNumber, amount, diba);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -47,7 +48,7 @@ public class ATM {
 		}
 	}
 
-	public void cashout(int accountNumber, int amount) {
+	public void cashout(int accountNumber, int amount, Bank bank) {
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -55,7 +56,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		Account account = getAccount(accountNumber, bank);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -71,26 +72,28 @@ public class ATM {
 		account.withdraw(amount);
 		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
+		System.out.println("Money left in account: " + account.getBalance());
 
 	};
 	
 	class AccountIterator implements Iterator<Account>{
 		
-		
+		Bank bank;
 		int currentPosition = -1;
 		
-		public AccountIterator() {
+		public AccountIterator(Bank bank) {
+			this.bank = bank;
 		}
 		
 		@Override
 		public boolean hasNext() {
-			return currentPosition < accounts.length-1;
+			return currentPosition < bank.accounts.length-1;
 		}
 
 		@Override
 		public Account next() {
 			currentPosition++;
-			return accounts[currentPosition];
+			return bank.accounts[currentPosition];
 		}
 		
 	}
@@ -109,8 +112,8 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+	protected Account getAccount(int id, Bank bank) {
+		for (Account account : bank) {
 			if (account.getId() == id) 
 				return account;
 		}
