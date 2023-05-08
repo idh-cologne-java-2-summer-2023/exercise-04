@@ -5,12 +5,15 @@ import java.util.Iterator;
 public class Bank implements Iterable<Account> {
 	
 	Account[] accounts = new Account[5];
-	ATM atm;
-	
-	public Bank(ATM atm) {
-		this.atm = atm;
+	private ATM atm;
+	public Bank() {
 		
 	}
+	
+	public void setAtm (ATM atm){
+		this.atm = atm;
+	}
+	
 
 	@Override
 	public Iterator<Account> iterator() {

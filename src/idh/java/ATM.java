@@ -9,18 +9,18 @@ public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
+	Bank bank;
 	
-	// bank linked to ATM
-	Bank diba = new Bank(this);
 	
-	public ATM() {
-		
+	public ATM(Bank bank) {
+		this.bank = bank;
+		bank.setAtm(this);
 		// create accounts with varying balances
 		Random random = new Random();
-		for (int i = 0; i < diba.accounts.length; i++) {
-			diba.accounts[i] = new Account(i, random.nextInt(1000));
+		for (int i = 0; i < bank.accounts.length; i++) {
+			bank.accounts[i] = new Account(i, random.nextInt(1000));
 		}
-		AccountIterator iterator = new AccountIterator(diba);
+		AccountIterator iterator = new AccountIterator(bank);
 		while(iterator.hasNext()) {
 			System.out.println(iterator.next().balance);
 		}
@@ -40,7 +40,7 @@ public class ATM {
 				int accountNumber = Integer.parseInt(br.readLine());
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount, diba);
+				cashout(accountNumber, amount, bank);
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
@@ -102,7 +102,9 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		// bank linked to ATM
+		Bank diba = new Bank();
+		ATM atm = new ATM(diba);
 		atm.run();
 	};
 	
