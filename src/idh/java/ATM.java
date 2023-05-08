@@ -77,16 +77,11 @@ public class ATM {
 		atm.run();
 	};
 	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
+	// gives back the right account of the type Account or null
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
+		AccountIterator iter = new AccountIterator(accounts, id);
+		while(iter.hasNext()) {
+			return iter.next();
 		}
 		return null;
 	}
