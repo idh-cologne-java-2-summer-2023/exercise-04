@@ -91,4 +91,75 @@ public class ATM {
 		return null;
 	}
 
+	public class AccountIterator implements Iterator<Account> {
+		
+		private Account[] accounts;
+		private int currentIndex;
+		
+		public AccountIterator(Account[] accounts) {
+			this.accounts = accounts;
+			this.currentIndex. = 0;
+			
+			public Account next() {
+				return accounts[currnetIndex++];
+			}
+		public void iterateAccounts() {
+			while (iterator.hasNext()) {
+				Account account = iterator.next();
+				System.out.println("Account ID: " + account.getId() + ", Balance: " + account.getBalance());
+			}
+		};
+		
+		public static void main(String[] args) {
+			Bank bank = new Bank(5);
+			ATM atm = new ATM(bank);
+			atm.run();
+		};
+		
+		class Bank implements Iterable<Account> {
+
+		    private Account[] accounts;
+
+		    public Bank(int numAccounts) {
+		        // create accounts with varying balances
+		        Random random = new Random();
+		        accounts = new Account[numAccounts];
+		        for (int i = 0; i < numAccounts; i++) {
+		            accounts[i] = new Account(i, random.nextInt(1000));
+		        }
+		    };
+
+		    public Iterator<Account> iterator() {
+		        return new AccountIterator();
+		    }
+		    private class AccountIterator implements Iterator<Account> {
+
+		        private int currentIndex = 0;
+
+		        @Override
+		        public boolean hasNext() {
+		            return currentIndex < accounts.length;
+		        }
+
+		        @Override
+		        public Account next() {
+		            if (hasNext()) {
+		                return accounts[currentIndex++];
+		            } else {
+		                return null;
+		            }
+	}
 }
+
+		    class Account {
+
+		        private int id;
+		        private int balance;
+
+		        public Account(int id, int balance) {
+		            this.id = id;
+		            this.balance = balance;
+		        }
+
+		        public int getId() {
+		            return id
