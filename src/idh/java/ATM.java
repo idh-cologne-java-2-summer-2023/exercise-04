@@ -10,7 +10,7 @@ public class ATM {
 	Bank bank;
 	
 	//Testbank Kreissparkasse Köln
-	static  Bank ksk = new Bank("Kreissparkasse Koeln");		//Bekomme Fehler wenn nicht static
+	static  Bank ksk = new Bank("Kreissparkasse Koeln");		
 	
 	public ATM(Bank bank) {
 		this.bank = bank;
