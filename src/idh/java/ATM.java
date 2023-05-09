@@ -9,16 +9,11 @@ public class ATM {
 	// initial cash in the ATM
 	int cash = 100;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
+	Bank bank1;
+	
+	public ATM(Bank bank2) {
+		bank1 = bank2;
 		}
-	}
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -73,10 +68,18 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		ATM atm = new ATM(new Bank());
 		atm.run();
+		
+//		AccountIterator iter = new AccountIterator(new Bank());
+//        while(iter.hasNext()) {
+//            System.out.println(iter.next().getId());
+//        }
+//        for (Account account : bank1) {
+//        	System.out.println(account.getId());
+//        }
+		// habe Aufgabe c) 2. nicht ganz verstanden, ob wir eine zweite Iterator Klasse brauchten und warum wir über die Accounts in der ATM Klasse iterieren sollen anstatt in der Bank Klasse.
 	};
-	
 	/**
 	 * Retrieves the account given an id.
 	 * 
@@ -84,11 +87,12 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+		for (Account account : bank1.accounts) {
 			if (account.getId() == id) 
 				return account;
 		}
 		return null;
 	}
+	
 
 }
