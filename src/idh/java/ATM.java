@@ -2,6 +2,7 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ATM {
@@ -19,6 +20,12 @@ public class ATM {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
 	}
+	
+AccountIterator acc = new AccountIterator(account);
+  while(acc.hasNext()) {
+	  System.out.println(acc.next().getId());
+  }
+
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
