@@ -1,22 +1,22 @@
 package idh.java;
 
 /**
- * This class represents an account in our bank.
- * @author reiterns
+ * Diese Klasse repräsentiert ein Konto in unserer Bank.
+ * Autor: reiterns
  *
  */
 public class Account {
-	// the balance of the account
+	// der Kontostand
 	int balance;
-	
-	// the id of the account
+
+	// die ID des Kontos
 	int id;
 
 	public Account(int id, int status) {
 		this.id = id;
 		this.balance = status;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -32,14 +32,14 @@ public class Account {
 	public void setBalance(int status) {
 		this.balance = status;
 	}
-	
+
 	/**
-	 * Withdraws a sum of money from the account
+	 * Hebt eine Summe Geld vom Konto ab.
 	 * @param sum
 	 */
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
 	}
-	
-	
+
+
 }

@@ -5,34 +5,31 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 public class ATM {
-	
-	// initial cash in the ATM
+
+	// Anfangskapital im Geldautomaten
 	int cash = 100;
 
-	// accounts known to the ATM
+	// Konten, die dem Geldautomaten bekannt sind
 	Account[] accounts = new Account[5];
 
 	public ATM() {
-		// create accounts with varying balances
+		// Konten mit unterschiedlichem Kontostand erzeugen
 		Random random = new Random();
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
 	}
-	
+
 	/**
-	 * Main command loop of the ATM Asks the user to enter a number, and passes this
-	 * number to the function cashout(...) which actually does the calculation and
-	 * produces money. If the user enters anything else than an integer number, the
-	 * loop breaks and the program exists
+	 * Hauptbefehlsschleife des Geldautomaten. Fordert den Benutzer auf, eine Nummer einzugeben, und gibt diese Nummer an die Funktion cashout(...) weiter, die tatsächlich die Berechnung durchführt und Geld ausgibt. Wenn der Benutzer etwas anderes als eine Ganzzahl eingibt, bricht die Schleife ab und das Programm wird beendet.
 	 */
 	public void run() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			try {
-				System.out.print("Enter your account number: ");
+				System.out.print("Geben Sie Ihre Kontonummer ein: ");
 				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Enter the amount to withdraw: ");
+				System.out.print("Geben Sie den abzuhebenden Betrag ein: ");
 				int amount = Integer.parseInt(br.readLine());
 				cashout(accountNumber, amount);
 			} catch (Exception e) {
@@ -43,49 +40,49 @@ public class ATM {
 	}
 
 	public void cashout(int accountNumber, int amount) {
-		// check for cash in the ATM
+		// Prüfen, ob im Geldautomaten genug Geld vorhanden ist
 		if (amount > cash) {
-			System.out.println("Sorry, not enough cash left.");
+			System.out.println("Sorry, nicht genug Bargeld übrig.");
 			return;
 		}
-		
-		// check for existence of the account
+
+		// Prüfen, ob das Konto existiert
 		Account account = getAccount(accountNumber);
 		if (account == null) {
-			System.out.println("Sorry, this account doesn't exist.");
+			System.out.println("Sorry, dieses Konto existiert nicht.");
 			return;
 		}
-		
-		// check for balance of the account
+
+		// Prüfen, ob genug Geld auf dem Konto ist
 		if (amount > account.getBalance()) {
-			System.out.println("Sorry, you're out of money.");
+			System.out.println("Sorry, du hast kein Geld mehr.");
 			return;
 		}
-		
-		// withdraw
+
+		// abheben
 		account.withdraw(amount);
 		cash += amount;
-		System.out.println("Ok, here is your money, enjoy!");
+		System.out.println("Ok, hier ist dein Geld, viel Spaß!");
 
 	};
 
 	/**
-	 * Launches the ATM
+	 * Startet den Geldautomaten
 	 */
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
 	};
-	
+
 	/**
-	 * Retrieves the account given an id.
-	 * 
+	 * Ruft das Konto anhand einer ID ab.
+	 *
 	 * @param id
 	 * @return
 	 */
 	protected Account getAccount(int id) {
 		for (Account account : accounts) {
-			if (account.getId() == id) 
+			if (account.getId() == id)
 				return account;
 		}
 		return null;
