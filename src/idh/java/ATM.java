@@ -3,9 +3,44 @@ package idh.java;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.List;
+import java.util.Iterator;
+import java.lang.Iterable;
 
 public class ATM {
+
+	// Aufgabe 2.1
+	// Ich habe versucht die Class Bank.java mit dieser ATM class zu verbinden
+	// Anschließend soll die Funktion auf
+	private Bank bank;
+
+	//ATM soll mit bank verbunden werden
+	public ATM(Bank bank) {
+		this.bank = bank;
+	}
+
+	//ATM soll über Accounts und bank die Konten und den Kontostand überprüfen 
+	public void MoneyWithdraw(Account account, int betrag) {
+		// Hier kann man über auf die Konten zugreifen
+		List<Account> accounts = bank.getAccount();
+		if (accounts.contains(account)) {
+			account.withdraw(betrag);
+		}
+
+		//Aufgabe 2.2 
+		//Ich habe versucht Bank mit Accounts zu Iterieren und Account iterator mit Account zu verbinden
+		//Leider kriege ich keine korrekte Ausgabe und konnte nicht herausfinden, woran 
+		//Der Fehler lag
 	
+		for (Account acc : bank) {
+			if (acc.equals(account)) {
+				acc.withdraw(betrag);
+				return;
+			}
+
+		}
+	}
+
 	// initial cash in the ATM
 	int cash = 100;
 
@@ -19,7 +54,7 @@ public class ATM {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
 	}
-	
+
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
 	 * number to the function cashout(...) which actually does the calculation and
@@ -48,20 +83,20 @@ public class ATM {
 			System.out.println("Sorry, not enough cash left.");
 			return;
 		}
-		
+
 		// check for existence of the account
 		Account account = getAccount(accountNumber);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
 		}
-		
+
 		// check for balance of the account
 		if (amount > account.getBalance()) {
 			System.out.println("Sorry, you're out of money.");
 			return;
 		}
-		
+
 		// withdraw
 		account.withdraw(amount);
 		cash += amount;
@@ -75,8 +110,14 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+
+		//Die While Schleife aus Aufgabe 1
+		AccountIterator iter = new AccountIterator();
+		while (iter.hasNext()) {
+			System.out.println(iter.next().getId());
+		}
 	};
-	
+
 	/**
 	 * Retrieves the account given an id.
 	 * 
@@ -85,7 +126,7 @@ public class ATM {
 	 */
 	protected Account getAccount(int id) {
 		for (Account account : accounts) {
-			if (account.getId() == id) 
+			if (account.getId() == id)
 				return account;
 		}
 		return null;
