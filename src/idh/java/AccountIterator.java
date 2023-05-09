@@ -20,6 +20,7 @@ public class AccountIterator implements Iterator<Account> {
 	public Account next() {
 		position++;
 		return accounts[position];
+		
 	}
 
 }

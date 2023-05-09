@@ -34,6 +34,7 @@ public class Bank implements Iterable<Account> {
 	@Override
 	public Iterator<Account> iterator() {
 		return accounts.iterator();
+		
 	}
 
 }

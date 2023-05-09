@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-public class ATM {
+ public class ATM {
 
 	// initial cash in the ATM
 	int cash = 100;
