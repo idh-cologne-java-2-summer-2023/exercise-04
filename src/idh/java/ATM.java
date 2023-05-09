@@ -7,19 +7,26 @@ import java.util.Random;
 public class ATM {
 	
 	// initial cash in the ATM
-	int cash = 100;
-
+	int cash = 1000;
+	Bank bank;
+	public Account[] accounts = new Account[5];
+	
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
-
+	//Account[] accounts = new Account[5];
+	//int bruh = 1;
+	
 	public ATM() {
 		// create accounts with varying balances
+		//System.out.println("begin");
 		AccountIterator iter = new AccountIterator(this);
+		//System.out.println("constructed");
 		Random random = new Random();
 		while (iter.hasNext()) {
-			//accounts[iter.next().getId()] = new Account(iter.currentPosition, random.nextInt(1000));
-			iter.next().setId(iter.currentPosition);
-			iter.next().setBalance(random.nextInt(1000));
+			iter.next();
+			//System.out.println("begin while");
+			accounts[iter.currentPosition] = new Account(iter.currentPosition, random.nextInt(1000));
+			//System.out.println(bruh);
+			//bruh++;
 		}
 	}
 	
