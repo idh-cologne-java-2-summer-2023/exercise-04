@@ -10,7 +10,7 @@ public class ATM {
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	static Account[] accounts = new Account[5];
 
 	public ATM() {
 		// create accounts with varying balances
@@ -75,7 +75,17 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
-	};
+		
+AccountIterator accIter = new AccountIterator(accounts);
+		
+		while (accIter.hasNext()) {
+			
+			Account account = accIter.next();
+		}		
+			
+			
+		
+	}
 	
 	/**
 	 * Retrieves the account given an id.
