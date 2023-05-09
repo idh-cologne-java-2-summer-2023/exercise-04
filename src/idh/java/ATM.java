@@ -2,6 +2,7 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ATM {
@@ -84,11 +85,18 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
+	    for (Account account : accounts) {
+	        if (account.getId() == id) 
+	            return account;
+	    }
+	    return null;
 	}
+
+	public Iterator<Account> getAccountIterator() {
+	    return new AccountIterator(accounts);
+	}
+	
+	
+
 
 }
