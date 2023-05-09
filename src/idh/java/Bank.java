@@ -31,6 +31,10 @@ public class Bank implements Iterable<Account> {
 		return null;
 	}
 
+	public Account getAccountByIndex(int pos) {
+		return accounts.get(pos);
+	}
+
 	@Override
 	public Iterator<Account> iterator() {
 		return accounts.iterator();

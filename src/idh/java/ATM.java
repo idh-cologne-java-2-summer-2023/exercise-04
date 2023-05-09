@@ -86,15 +86,16 @@ public class ATM {
 	}
 
 	protected Account getAccount(int id) {
-		//Aufgabe 1
+		// Aufgabe 1
 		Account acc = null;
 		AccountIterator suche = new AccountIterator(bank);
 		while (suche.hasNext()) {
-			if (suche.next().getId() == id) {
-				acc = suche.next();
+			acc = suche.next();
+			if (acc.getId() == id) {
+				return acc;
 			}
 		}
-		return acc;
+		return null;
 	}
 
 }
