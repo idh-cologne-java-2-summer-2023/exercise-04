@@ -1,11 +1,14 @@
 package idh.java;
 
+
 /**
  * This class represents an account in our bank.
  * @author reiterns
  *
  */
 public class Account {
+	public static char[] getId;
+
 	// the balance of the account
 	int balance;
 	
@@ -39,6 +42,11 @@ public class Account {
 	 */
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
+	}
+
+	public void remove(Account account) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

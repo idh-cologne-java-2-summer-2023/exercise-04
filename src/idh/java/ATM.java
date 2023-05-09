@@ -10,13 +10,13 @@ public class ATM {
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Account[] bank = new Account[5];
 
 	public ATM() {
 		// create accounts with varying balances
 		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
+		for (int i = 0; i < bank.length; i++) {
+			bank[i] = new Account(i, random.nextInt(1000));
 		}
 	}
 	
@@ -75,6 +75,12 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+		
+		AccountIterator iter = new AccountIterator();
+		while (iter.hasNext()) {
+			iter.next();
+			System.out.println(Account.getId);
+		}
 	};
 	
 	/**
@@ -84,7 +90,7 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+		for (Account account : bank) {
 			if (account.getId() == id) 
 				return account;
 		}
