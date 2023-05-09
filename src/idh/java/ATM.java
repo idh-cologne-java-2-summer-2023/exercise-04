@@ -10,7 +10,7 @@ public class ATM {
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	static Account[] accounts = new Account[5];
 
 	public ATM() {
 		// create accounts with varying balances
@@ -75,6 +75,15 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+
+// b) Aufgabe 1		
+		AccountIterator iter = new AccountIterator(accounts);
+		
+		while(iter.hasNext()) {
+			System.out.println(iter.next().getId());
+		}
+		System.out.println();
+		
 	};
 	
 	/**
