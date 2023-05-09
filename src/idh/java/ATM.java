@@ -2,6 +2,7 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ATM {
@@ -19,6 +20,28 @@ public class ATM {
 			accounts[i] = new Account(i, random.nextInt(1000));
 		}
 	}
+	private class AccountIterator implements Iterator<Account> {
+		private Account[] accounts;
+		private int currentIndex;
+		
+		public AccountIterator(Account[]accounts) {
+			this.accounts = accounts;
+			this.currentIndex = 0;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentIndex < accounts.length;
+		}
+
+		@Override
+		public Account next() {
+			return accounts[currentIndex++];
+		}
+		
+	}
+	
+	
 	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
@@ -34,27 +57,41 @@ public class ATM {
 				int accountNumber = Integer.parseInt(br.readLine());
 				System.out.print("Enter the amount to withdraw: ");
 				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
+				
+				// iterate over accounts
+	            AccountIterator accountIterator = new AccountIterator(accounts);
+	            while (accountIterator.hasNext()) {
+	                Account account = accountIterator.next();
+
+	                if (account.getId() == accountNumber) {
+	                    cashout(account, amount);
+	                    break;
+	                    }
+	                }
+	            System.out.println("Sorry, this account doesn't exist.");
+	            
 			} catch (Exception e) {
 				e.printStackTrace();
 				break;
 			}
 		}
 	}
+	
 
-	public void cashout(int accountNumber, int amount) {
-		// check for cash in the ATM
+
+	public void cashout(Account account, int amount) {
+		// check for cash in the ATMf
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
 			return;
 		}
 		
-		// check for existence of the account
-		Account account = getAccount(accountNumber);
-		if (account == null) {
-			System.out.println("Sorry, this account doesn't exist.");
-			return;
-		}
+//		// check for existence of the account
+//		account = getAccount(accountNumber);
+//		if (account == null) {
+//			System.out.println("Sorry, this account doesn't exist.");
+//			return;
+//		}
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {
