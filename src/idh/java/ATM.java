@@ -2,7 +2,10 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.ArrayList;
+
 
 public class ATM {
 	
@@ -10,10 +13,15 @@ public class ATM {
 	int cash = 100;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	static Account[] accounts = new Account[5];
+	//original
+	//Account[] accounts = new Account[5];
 
+	
+	//Constructor für ATM
 	public ATM() {
 		// create accounts with varying balances
+		// ToDo: Irgendwie den Banknamen einbauen
 		Random random = new Random();
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
@@ -68,6 +76,26 @@ public class ATM {
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
+	
+	//Innere Klasse AccountIterator!
+		public class AccountIterator implements Iterator<Account> {
+
+			@Override
+			public boolean hasNext() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Account next() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		
+		}
+		
+		
+			
 
 	/**
 	 * Launches the ATM
@@ -75,6 +103,22 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+		
+	
+		//Arraylist erstellen
+				ArrayList<Account> AccountListe = new ArrayList<>(accounts.length);
+				
+				//accounts-Array in ArrayList übertragen für Iterator
+				for(int i = 0; i < accounts.length; i++) { 
+				AccountListe.add(accounts[i]);
+				
+				}
+				//Iterator schaffen
+				Iterator<Account> AccountIterator = AccountListe.iterator();
+				//zugriff per While-Schleife auf accounts
+				while(AccountIterator.hasNext()) {
+					Account AccountID = AccountIterator.next();
+				}
 	};
 	
 	/**
