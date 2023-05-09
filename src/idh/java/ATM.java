@@ -6,11 +6,13 @@ import java.util.Random;
 
 public class ATM {
 	
+	Bank bank; 
 	// initial cash in the ATM
 	int cash = 100;
 
 	// accounts known to the ATM
 	Account[] accounts = new Account[5];
+	private Account account;
 
 	public ATM() {
 		// create accounts with varying balances
@@ -20,14 +22,23 @@ public class ATM {
 		}
 	}
 	
+	public ATM(Bank bank) {
+		
+		this.bank = bank; 
+		
+	}
+	
+	
 	/**
 	 * Main command loop of the ATM Asks the user to enter a number, and passes this
 	 * number to the function cashout(...) which actually does the calculation and
 	 * produces money. If the user enters anything else than an integer number, the
 	 * loop breaks and the program exists
 	 */
-	public void run() {
+	public void run1() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		
 		while (true) {
 			try {
 				System.out.print("Enter your account number: ");
@@ -42,6 +53,8 @@ public class ATM {
 		}
 	}
 
+	
+	
 	public void cashout(int accountNumber, int amount) {
 		// check for cash in the ATM
 		if (amount > cash) {
@@ -50,12 +63,13 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
-		if (account == null) {
-			System.out.println("Sorry, this account doesn't exist.");
-			return;
-		}
+//		Account account = getAccount(accountNumber);
+//		if (account == null) {
+//			System.out.println("Sorry, this account doesn't exist.");
+//			return;
+//		}
 		
+		account = null;
 		// check for balance of the account
 		if (amount > account.getBalance()) {
 			System.out.println("Sorry, you're out of money.");
@@ -74,7 +88,7 @@ public class ATM {
 	 */
 	public static void main(String[] args) {
 		ATM atm = new ATM();
-		atm.run();
+		atm.run1();
 	};
 	
 	/**
@@ -90,5 +104,12 @@ public class ATM {
 		}
 		return null;
 	}
+	
+	
 
-}
+
+	public void run11() {
+		// TODO Auto-generated method stub
+		
+		}
+	}

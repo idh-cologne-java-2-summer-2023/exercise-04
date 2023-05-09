@@ -17,6 +17,10 @@ public class Account {
 		this.balance = status;
 	}
 	
+	public Account(String string, int status) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -39,6 +43,16 @@ public class Account {
 	 */
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getAccountNumber() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
