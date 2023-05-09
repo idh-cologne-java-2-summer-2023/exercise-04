@@ -82,8 +82,8 @@ public class ATM {
 	
 	protected Account getAccount(int id) {
 		
-		for (Account account : b.accounts) {
-			if (account.getId() == id) 
+		for (Account account : b) {
+			if (account.getId() == id)
 				return account;
 		}
 		return null;

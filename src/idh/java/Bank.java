@@ -7,7 +7,6 @@ public class Bank implements Iterable<Account> {
 	static Account[] accounts = new Account[100];
 	
 	public static void main(String[] args) {
-		
 	}
 	
 	public Bank() {
@@ -22,8 +21,8 @@ public class Bank implements Iterable<Account> {
 	}
 	
 	public static Account[] getAccount() {
-
 		return accounts;
+	
 	}
 	
 }
