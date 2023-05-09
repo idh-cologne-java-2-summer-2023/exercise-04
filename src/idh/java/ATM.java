@@ -6,6 +6,14 @@ import java.util.Random;
 
 public class ATM {
 	
+     Bank bank;
+    
+    public ATM(Bank bank) {
+        this.bank = bank;
+    }
+	
+	
+	
 	// initial cash in the ATM
 	int cash = 100;
 
@@ -43,6 +51,9 @@ public class ATM {
 	}
 
 	public void cashout(int accountNumber, int amount) {
+		
+		
+		
 		// check for cash in the ATM
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
@@ -50,7 +61,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		Account account = bank.getAccount(accountNumber);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -73,7 +84,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank bank = new Bank(5);
+		ATM atm = new ATM(bank);
 		atm.run();
 	};
 	
@@ -84,11 +96,14 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
+	    AccountIterator accountIterator = new AccountIterator(accounts);
+	    while (accountIterator.hasNext()) {
+	        Account account = accountIterator.next();
+	        if (account.getId() == id) {
+	            return account;
+	        }
+	    }
+	    return null;
 	}
 
 }
