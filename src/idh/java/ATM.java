@@ -2,22 +2,16 @@ package idh.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Random;
 
 public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
 
-	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	Bank bank;
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	public ATM(Bank bank) {
+		this.bank = bank;
 	}
 	
 	/**
@@ -50,7 +44,7 @@ public class ATM {
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		Account account = bank.getAccount(accountNumber);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
@@ -72,23 +66,20 @@ public class ATM {
 	/**
 	 * Launches the ATM
 	 */
-	public static void main(String[] args) {
-		ATM atm = new ATM();
+	public static void main(String[] args) throws Exception{
+		ATM atm = new ATM(new Bank());
 		atm.run();
+
+        AccountIterator iter = new AccountIterator(new Bank());
+        while(iter.hasNext()) {
+            System.out.println(iter.next().getId());
+        }
 	};
 	
-	/**
-	 * Retrieves the account given an id.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	protected Account getAccount(int id) {
-		for (Account account : accounts) {
-			if (account.getId() == id) 
-				return account;
-		}
-		return null;
-	}
+	//Ich wusste nichts mit dieser Schleife anzufangen: for (Account account : bank) { ... },
+	//weil ja eigentlich die Bank die Accounts verwalten soll. 
+	//Daher habe ich es nicht geschafft, diese Schleife einzubauen ohne einen Syntaxfehler 
+	//oder eine Exception hervorzurufen.
+	
 
 }
