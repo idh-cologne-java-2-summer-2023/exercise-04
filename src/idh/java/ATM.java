@@ -76,6 +76,9 @@ public class ATM {
 		ATM atm = new ATM();
 		atm.run();
 
+// Hab es nicht sauber geschafft, die Methoden ordentlich in den eigentlichen Prozess des
+// Geldautomatens einzubauen. Daher hab ich im Grunde bloß das Beispiel aus der Sitzung umgeschrieben.
+		
 // b) Aufgabe 1		
 		AccountIterator iter = new AccountIterator(accounts);
 		
@@ -83,6 +86,19 @@ public class ATM {
 			System.out.println(iter.next().getId());
 		}
 		System.out.println();
+		
+// c) Aufgabe 2 
+	
+// hier kann ich nicht auf "bank" zugreifen, Gründe s.o.	
+//		for (Account account : bank) {
+//			
+//		}
+		
+// so geht es, passt aber nicht zur Aufgabenstellung
+		for (Account account : accounts) {
+			System.out.println(account.getId());
+		}
+		
 		
 	};
 	
