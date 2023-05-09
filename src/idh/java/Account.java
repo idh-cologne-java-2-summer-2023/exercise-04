@@ -40,6 +40,7 @@ public class Account {
 	public void withdraw(int sum) {
 		this.balance = balance - sum;
 	}
+
+
+	}
 	
-	
-}
