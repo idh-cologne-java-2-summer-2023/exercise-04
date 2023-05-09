@@ -1,3 +1,23 @@
+public void run() {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    while (true) {
+        try {
+            System.out.print("Enter your account number: ");
+            int accountNumber = Integer.parseInt(br.readLine());
+            Account account = getAccount(accountNumber);
+            if (account == null) {
+                System.out.println("Sorry, this account doesn't exist.");
+                continue;
+            }
+            System.out.print("Enter the amount to withdraw from account " + account.getId() + ": ");
+            int amount = Integer.parseInt(br.readLine());
+            cashout(account.getId(), amount);
+        } catch (Exception e) {
+            e.printStackTrace();
+            break;
+        }
+    }
+}
 Fortgeschrittene Programmierung (Java 2)
 
 # Übung 4

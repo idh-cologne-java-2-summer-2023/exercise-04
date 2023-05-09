@@ -27,20 +27,28 @@ public class ATM {
 	 * loop breaks and the program exists
 	 */
 	public void run() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while (true) {
-			try {
-				System.out.print("Enter your account number: ");
-				int accountNumber = Integer.parseInt(br.readLine());
-				System.out.print("Enter the amount to withdraw: ");
-				int amount = Integer.parseInt(br.readLine());
-				cashout(accountNumber, amount);
-			} catch (Exception e) {
-				e.printStackTrace();
-				break;
-			}
-		}
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    while (true) {
+	        try {
+	            System.out.print("Enter your account number: ");
+	            int accountNumber = Integer.parseInt(br.readLine());
+	            Account account = getAccount(accountNumber);
+	            if (account == null) {
+	                System.out.println("Sorry, this account doesn't exist.");
+	                continue;
+	            }
+	            System.out.print("Enter the amount to withdraw from account " + account.getId() + ": ");
+	            int amount = Integer.parseInt(br.readLine());
+	            cashout(account.getId(), amount);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            break;
+	        }
+	    }
 	}
+
+
+	
 
 	public void cashout(int accountNumber, int amount) {
 		// check for cash in the ATM
