@@ -5,6 +5,11 @@ import java.io.InputStreamReader;
 
 public class ATM {
 	
+	//Ich wusste nichts mit dieser Schleife anzufangen: for (Account account : bank) { ... },
+	//weil ja eigentlich die Bank die Accounts verwalten soll. 
+	//Daher habe ich es nicht geschafft, diese Schleife einzubauen ohne einen Syntaxfehler 
+	//oder eine Exception hervorzurufen. Aufgabe c) 2. ist also unvollständig, I tried :(
+	
 	// initial cash in the ATM
 	int cash = 100;
 
@@ -75,11 +80,5 @@ public class ATM {
             System.out.println(iter.next().getId());
         }
 	};
-	
-	//Ich wusste nichts mit dieser Schleife anzufangen: for (Account account : bank) { ... },
-	//weil ja eigentlich die Bank die Accounts verwalten soll. 
-	//Daher habe ich es nicht geschafft, diese Schleife einzubauen ohne einen Syntaxfehler 
-	//oder eine Exception hervorzurufen.
-	
 
 }
