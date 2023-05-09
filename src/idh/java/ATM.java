@@ -4,6 +4,44 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class Bank implements Iterable<Account> {
+    private List<Account> accounts;
+
+    public Bank() {
+        accounts = new ArrayList<>();
+    }
+
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
+
+    @Override
+    public Iterator<Account> iterator() {
+        return new AccountIterator();
+    }
+
+    private class AccountIterator implements Iterator<Account> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < accounts.size();
+        }
+
+        @Override
+        public Account next() {
+            return accounts.get(currentIndex++);
+        }
+    }
+}
+
+
 public class ATM {
 	
 	// initial cash in the ATM
