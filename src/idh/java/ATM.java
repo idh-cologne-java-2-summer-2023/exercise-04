@@ -21,7 +21,6 @@ public class ATM {
             this.cashATM = cashATM;
         }
 	}
-
 	public class Bankaccount {
 		double balance = 0;
 		public Bankaccount(double balance, Account account) {
@@ -80,9 +79,12 @@ public class ATM {
 						bankaccounts.add(bankaccount);
 						currentBankaccount = bankaccount;
 					}
+					AccountIterator iterator = new AccountIterator(bankaccounts);
+					iterator.iterateAccounts();
 
-					System.out.println("Your bank's ID is: " + currentBankaccount.account.getId() + " and your balance is "
-							+ currentBankaccount.getBalance() + "€");
+					System.out.println("Your current bank's ID: " + currentBankaccount.account.getId());
+					System.out.println("Balance: " + currentBankaccount.getBalance() + "€");
+					System.out.println("The ATMs fortune: " + atmFortune.getCashATM());
 					withdraw(currentBankaccount, atmFortune);
 				}
 			} catch (Exception e) {
