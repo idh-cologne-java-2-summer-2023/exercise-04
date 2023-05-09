@@ -12,8 +12,21 @@ public class ATM {
 	//Testbank Kreissparkasse Köln
 	static  Bank ksk = new Bank("Kreissparkasse Koeln");		
 	
+	
+	/*	Zu Aufgabenteil 1
+	 * // accounts known to the ATM
+	public Account[] accounts = new Account[5];*/
+	
 	public ATM(Bank bank) {
 		this.bank = bank;
+		/*
+		 * Zu Aufgabenteil 1
+		 * // create accounts with varying balances
+		Random random = new Random();
+		for (int i = 0; i < accounts.length; i++) {
+			accounts[i] = new Account(i, random.nextInt(1000));
+		}*/
+		
 	}
 	
 	/**
@@ -84,6 +97,21 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
+	
+	/*	
+	 * 
+	 * Lösung zu Aufgabe 1 (While Schleife mit Iterator)
+	 * 
+	 * protected Account getAccount(int id) {
+		AccountIterator iter = new AccountIterator(accounts);	
+		while (iter.hasNext()) {
+				if (iter.next().getId() == id) 
+				return iter.next();
+		}
+		return null;
+	}
+	*/
+	
 	protected Account getAccount(int id, Bank bank) {
 		
 		for(Account konten : bank) {
