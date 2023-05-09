@@ -6,18 +6,23 @@ import java.util.Random;
 
 public class ATM {
 	
+	Bank bank;
+	
 	// initial cash in the ATM
 	int cash = 100;
+	
+	public ATM(Bank bank) {
+	
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	/*Account[] accounts = new Account[5];
 
 	public ATM() {
 		// create accounts with varying balances
 		Random random = new Random();
 		for (int i = 0; i < accounts.length; i++) {
 			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+		}*/
 	}
 	
 	/**
@@ -44,17 +49,27 @@ public class ATM {
 
 	public void cashout(int accountNumber, int amount) {
 		// check for cash in the ATM
+		Account account = null;
 		if (amount > cash) {
 			System.out.println("Sorry, not enough cash left.");
 			return;
 		}
 		
 		// check for existence of the account
-		Account account = getAccount(accountNumber);
+		for (Account account1 : bank ) {
+			if (account1.getId() == account1.id)
+				account1 = account;
+			else
+				System.out.println("Sorry, this account doesn't exist.");
+		}
+		
+		
+		
+		/*Account account = getAccount(accountNumber);
 		if (account == null) {
 			System.out.println("Sorry, this account doesn't exist.");
-			return;
-		}
+			return;*/
+		
 		
 		// check for balance of the account
 		if (amount > account.getBalance()) {
@@ -73,7 +88,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
-		ATM atm = new ATM();
+		Bank bank = new Bank(5);
+		ATM atm = new ATM(bank);
 		atm.run();
 	};
 	
@@ -83,12 +99,12 @@ public class ATM {
 	 * @param id
 	 * @return
 	 */
-	protected Account getAccount(int id) {
+	/*protected Account getAccount(int id) {
 		for (Account account : accounts) {
 			if (account.getId() == id) 
 				return account;
 		}
-		return null;
-	}
+		return null; 
+	} */
 
 }
