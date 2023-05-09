@@ -4,22 +4,22 @@ import java.util.Iterator;
 
 public class AccountIterator implements Iterator<Account> {
 
-	private Account[] accounts;
-	private int position = 0;
+	Bank bank;
+	int position = -1;
 
-	public AccountIterator(Account[] accounts) {
-		this.accounts = accounts;
+	public AccountIterator(Bank bank) {
+		this.bank = bank;
 	}
 
 	@Override
 	public boolean hasNext() {
-		return position > accounts.length;
+		return position <= bank.accounts.size();
 	}
 
 	@Override
 	public Account next() {
-		position++;
-		return accounts[position];
+		
+		return bank.getAccountID(position++);
 	}
 
 }

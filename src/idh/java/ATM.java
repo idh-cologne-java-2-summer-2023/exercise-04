@@ -47,7 +47,7 @@ public class ATM {
 		}
 
 		// check for existence of the account, with iteration
-		// Account account = getAccount(accountNumber);
+		// Aufgabe 2
 		Account account = null;
 		for (Account acc : bank) {
 			if (acc.getId() == accountNumber) {
@@ -56,7 +56,7 @@ public class ATM {
 			}
 		}
 
-		if (account == null) {
+		if (getAccount(accountNumber) == null) {
 			System.out.println("Sorry, this account doesn't exist.");
 			return;
 		}
@@ -83,6 +83,18 @@ public class ATM {
 		bank.addAccount(new Account(9043, 900));
 		ATM atm = new ATM(bank);
 		atm.run();
+	}
+
+	protected Account getAccount(int id) {
+		//Aufgabe 1
+		Account acc = null;
+		AccountIterator suche = new AccountIterator(bank);
+		while (suche.hasNext()) {
+			if (suche.next().getId() == id) {
+				acc = suche.next();
+			}
+		}
+		return acc;
 	}
 
 }

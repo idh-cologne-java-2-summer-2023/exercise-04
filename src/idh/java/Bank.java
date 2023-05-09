@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Bank implements Iterable<Account> {
 
-	private ArrayList<Account> accounts = new ArrayList<Account>();
+	public ArrayList<Account> accounts = new ArrayList<Account>();
 
 	public Bank() {
 	}
