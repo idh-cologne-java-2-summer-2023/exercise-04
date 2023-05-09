@@ -3,12 +3,12 @@ package idh.java;
 import java.util.Iterator;
 
 public class AccountIterator implements Iterator<Account> {
+
     private Account[] accounts;
-    private int currentIndex;
+    private int currentIndex = 0;
 
     public AccountIterator(Account[] accounts) {
         this.accounts = accounts;
-        this.currentIndex = 0;
     }
 
     @Override
@@ -23,9 +23,11 @@ public class AccountIterator implements Iterator<Account> {
 
     @Override
     public void remove() {
-        // not implemented
+        throw new UnsupportedOperationException("remove operation not supported by AccountIterator");
     }
+
 }
+
 
 
 

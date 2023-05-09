@@ -92,3 +92,7 @@ public class ATM {
 	}
 
 }
+
+
+
+// ICh habe es trotz mehrfachem versuchen unglücklicher weise nicht hinbekommen Aufgabe 2 punkt 2 zu lösen //
