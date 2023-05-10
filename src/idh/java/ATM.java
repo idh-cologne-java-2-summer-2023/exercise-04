@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+/*I would like the record to show that I tried for two weeks and still don´t get how this is supposed
+* to work. Maybe I´m missing something that we did last semester?
+*/
 public class ATM {
 	
 	// initial cash in the ATM
