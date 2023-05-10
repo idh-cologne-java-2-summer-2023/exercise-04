@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+
 public class ATM {
 	
 	// initial cash in the ATM
@@ -14,10 +15,6 @@ public class ATM {
 
 	public ATM() {
 		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
 	}
 	
 	/**
@@ -41,6 +38,8 @@ public class ATM {
 			}
 		}
 	}
+	
+	
 
 	public void cashout(int accountNumber, int amount) {
 		// check for cash in the ATM
@@ -91,4 +90,8 @@ public class ATM {
 		return null;
 	}
 
-}
+	AccountIterator accountIterator = new AccountIterator(accounts); {
+	while (accountIterator.hasNext()) {
+	    Account account = accountIterator.next();
+	}
+}}
