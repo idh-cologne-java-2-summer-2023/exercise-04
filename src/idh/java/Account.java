@@ -1,4 +1,4 @@
-package idh.java;
+ package idh.java;
 
 /**
  * This class represents an account in our bank.

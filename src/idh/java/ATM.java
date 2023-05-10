@@ -4,20 +4,24 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+import java.util.Iterator;
+
 public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
+	Bank bank;
 
 	// accounts known to the ATM
-	Account[] accounts = new Account[5];
+	///Account[] accounts = new Account[5];
 
-	public ATM() {
+	public ATM(Bank bank) {
+		this.bank = bank;
 		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	//	Random random = new Random();
+	//	for (int i = 0; i < accounts.length; i++) {
+	//		accounts[i] = new Account(i, random.nextInt(1000));
+	//	}
 	}
 	
 	/**
@@ -64,10 +68,18 @@ public class ATM {
 		
 		// withdraw
 		account.withdraw(amount);
-		cash += amount;
+		cash -= amount;
 		System.out.println("Ok, here is your money, enjoy!");
 
 	};
+	
+	public int size() {
+		return accounts.length;
+	}
+	
+	public Account getAccount2(int position) {
+		 return accounts[position];
+	}
 
 	/**
 	 * Launches the ATM
@@ -75,6 +87,11 @@ public class ATM {
 	public static void main(String[] args) {
 		ATM atm = new ATM();
 		atm.run();
+		
+		AccountIterator iter = new AccountIterator(atm);
+		while(iter.hasNext()) {
+			System.out.println(iter.next());
+		}
 	};
 	
 	/**
@@ -84,7 +101,7 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
-		for (Account account : accounts) {
+		for (account accounts : Account) {
 			if (account.getId() == id) 
 				return account;
 		}
