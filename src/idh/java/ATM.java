@@ -85,6 +85,8 @@ public class ATM {
 	 * Launches the ATM
 	 */
 	public static void main(String[] args) {
+		// hier fehlt die bank als parameter im konstruktor. Ich weiﬂ leider nicht genau wie ich das insgsamt am besten
+		// modularisiere und in welcher Klasse ich die main methode nutzen soll
 		ATM atm = new ATM();
 		atm.run();
 		
