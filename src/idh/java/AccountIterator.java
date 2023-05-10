@@ -16,5 +16,13 @@ public class AccountIterator implements Iterator<Account> {
         throw new UnsupportedOperationException("Unimplemented method 'next'");
     }
     
-    
-}
+    public void AccountIteration(int Account){
+        int i = 0;
+   // for (i < Account.length; i++){
+        
+
+
+
+    }
+    }
+//}
