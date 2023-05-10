@@ -83,6 +83,10 @@ public class ATM{
 	 * @return
 	 */
 	protected Account getAccount(int id) {
+		AccountIterator	accountiterator = new AccountIterator();
+		while(accountiterator.hasNext()) {
+			System.out.println(accountiterator.next().getAccount);
+		}
 		for (Account account : accounts) {
 			if (account.getId() == id)
 				return account;
