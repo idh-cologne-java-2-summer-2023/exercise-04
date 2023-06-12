@@ -81,6 +81,8 @@ public class ATM {
 	 * @return
 	 */
 	protected Account getAccount(int id) {
+		//iteriert über die Konten in der Bank
+		//gibt sonst null zurück
 		for (Account account : bank) {
 			if (account.getId() == id)
 				return account;
