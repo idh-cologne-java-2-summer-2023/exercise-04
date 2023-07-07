@@ -8,16 +8,19 @@ public class ATM {
 	
 	// initial cash in the ATM
 	int cash = 100;
+	
+	// Bank Class
+	Bank bank = new Bank();
 
 	// accounts known to the ATM
 	Account[] accounts = new Account[5];
 
-	public ATM() {
-		// create accounts with varying balances
-		Random random = new Random();
-		for (int i = 0; i < accounts.length; i++) {
-			accounts[i] = new Account(i, random.nextInt(1000));
-		}
+	/**
+	 * Launches the ATM
+	 */
+	public static void main(String[] args) {
+		ATM atm = new ATM();
+		atm.run();
 	}
 	
 	/**
@@ -69,14 +72,6 @@ public class ATM {
 
 	};
 
-	/**
-	 * Launches the ATM
-	 */
-	public static void main(String[] args) {
-		ATM atm = new ATM();
-		atm.run();
-	};
-	
 	/**
 	 * Retrieves the account given an id.
 	 * 
